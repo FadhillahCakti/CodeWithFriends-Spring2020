@@ -23,11 +23,11 @@ Route::get('/en/about', 'SerbaserbiController@about');
 Route::get('/jp/yaku', 'SerbaserbiController@yaku');
 
 /* Route Info Corona */
-Route::get('id/corona', 'CoronaId@corona');
-Route::get('id/corona/indonesia', 'CoronaId@indonesia');
-Route::get('id/corona/provinsi', 'CoronaId@provinsi');
-Route::get('id/corona/dunia', 'CoronaId@dunia');
-Route::get('id/corona/detilprovinsi', 'CoronaId@detilprovinsi');
+Route::get('id/corona', 'SerbaserbiController@corona');
+Route::get('id/corona/indonesia', 'SerbaserbiController@indonesia');
+Route::get('id/corona/provinsi', 'SerbaserbiController@provinsi');
+Route::get('id/corona/dunia', 'SerbaserbiController@dunia');
+Route::get('id/corona/detilprovinsi', 'SerbaserbiController@detilprovinsi');
 
 /* Route Member Utama (Member48) */
 Route::get('/id/member', 'MemberId@member');
