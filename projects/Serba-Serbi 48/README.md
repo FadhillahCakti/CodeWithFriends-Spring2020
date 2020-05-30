@@ -28,6 +28,5 @@ How To Run in Localhost:
 1. Install XAMPP (For run php my admin + to utilize php.exe)
 2. Install Composer (For run laravel)
 3. Run in cmd "composer global require laravel/installer" (For install Laravel)
-4. Run in cmd (in Laravel's folder) "composer require laravel/ui" and "php artisan ui vue --auth" for have authentication laravel
-5. Download this project and copy to laravel's file (delete files that have the same folder name as this project before)
+5. Download this project and copy to laravel's file (delete all files except vendor, and put result of download in that's project)
 6. Run in cmd "php artisan serve" and click file "xampp_start" in xampp file for show this project in localhost(:8000)
