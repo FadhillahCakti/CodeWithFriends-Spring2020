@@ -12,93 +12,137 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 
-*/
-Route::get('/', function () {
+*/ 
+
+/* Awalan/Index Website */
+Route::get('/awal/{locale}', function ($locale) {
+    App::setLocale($locale);
     return view('awal');});
 
-Route::get('/gantibahasa', 'SerbaserbiController@gantibahasa');
 /* Route Tentang */
-Route::get('/tentang', 'SerbaserbiController@tentang');
-Route::get('/en/about', 'SerbaserbiController@about');
-Route::get('/jp/yaku', 'SerbaserbiController@yaku');
-
-/* Route Info Corona */
-Route::get('id/corona', 'SerbaserbiController@corona');
-Route::get('id/corona/indonesia', 'SerbaserbiController@indonesia');
-Route::get('id/corona/provinsi', 'SerbaserbiController@provinsi');
-Route::get('id/corona/dunia', 'SerbaserbiController@dunia');
-Route::get('id/corona/detilprovinsi', 'SerbaserbiController@detilprovinsi');
-
-/* Route Member Utama (Member48) */
-Route::get('/id/member', 'MemberId@member');
-Route::get('/id/member_edit', 'MemberId@memberedit');
-Route::get('/id/member/tambah', 'MemberId@member_tambah');
-Route::get('/id/member/edit/{username}', 'MemberId@member_edit');
-Route::get('/id/member/cari', 'MemberId@cari');
-Route::post('/id/member/store', 'MemberId@member_store');
-Route::put('/id/member/update/{username}', 'MemberId@member_update');
-
-/*Route Member Detil */
-Route::get('/id/member/atsukomaeda', 'MemberId@atsukomaeda');
-Route::get('/id/member/shimazakiharuka', 'MemberId@shimazakiharuka');
+Route::get('/{locale}/tentang', function ($locale) {
+    App::setLocale($locale);
+    return view('tentang');
+});
 
 
-/* Route Lirik Utama (Lirik48) */
-Route::get('/id/lirik', 'LirikId@lirik');
-Route::get('/id/lirik_edit', 'LirikId@lirikedit');
-Route::get('/id/lirik/tambah', 'LirikId@lirik_tambah');
-Route::get('/id/lirik/edit/{judul_penyanyi}', 'LirikId@lirik_edit');
-Route::get('/id/lirik/cari', 'LirikId@cari');
-Route::post('/id/lirik/store', 'LirikId@lirik_store');
-Route::put('/id/lirik/update/{judul_penyanyi}', 'LirikId@lirik_update');
+/* Route Info Corona Indonesia */
+Route::get('/{locale}/corona', function ($locale) {
+    App::setLocale($locale);
+    return view('corona.corona');});
+Route::get('{locale}/corona/detilprovinsi', function ($locale) {
+    App::setLocale($locale);
+    return view('corona.detilprovinsi');});
+Route::get('id/corona/indonesia', 'Corona@indonesiaid');
+Route::get('en/corona/indonesia', 'Corona@indonesiaen');
+Route::get('jp/corona/indonesia', 'Corona@indonesiajp');
+Route::get('id/corona/provinsi', 'Corona@provinsiid');
+Route::get('en/corona/provinsi', 'Corona@provinsien');
+Route::get('jp/corona/provinsi', 'Corona@provinsijp');
+Route::get('id/corona/dunia', 'Corona@duniaid');
+Route::get('en/corona/dunia', 'Corona@duniaen');
+Route::get('jp/corona/dunia', 'Corona@duniajp');
 
-/*Route lirik Detil */
-Route::get('/id/lirik/hightension_jkt48', 'LirikId@hightension_jkt48');
-Route::get('/id/lirik/yuuhiwomiteiruka_akb48', 'LirikId@yuuhiwomiteiruka_akb48');
+/* Route Foto Utama (Foto 48) */
+Route::get('/id/foto', 'Utama@fotoid');
+Route::get('/en/foto', 'Utama@fotoen');
+Route::get('/jp/foto', 'Utama@fotojp');
+Route::get('/id/foto/cari', 'Utama@carifotoid');
+Route::get('/en/foto/cari', 'Utama@carifotoen');
+Route::get('/jp/foto/cari', 'Utama@carifotojp');
 
-/* Route Foto Utama (Foto48) */
-Route::get('/id/foto', 'FotoId@foto');
-Route::get('/id/foto_edit', 'FotoId@fotoedit');
-Route::get('/id/foto/tambah', 'FotoId@foto_tambah');
-Route::get('/id/foto/edit/{id}', 'FotoId@foto_edit');
-Route::get('/id/foto/cari', 'FotoId@cari');
-Route::post('/id/foto/store', 'FotoId@foto_store');
-Route::put('/id/foto/update/{id}', 'FotoId@foto_update');
+Route::get('/fotoedit', 'Fotos@fotoedit');
+Route::get('/fotoedit/cari', 'Fotos@cari');
+Route::get('/foto/edit/{id}', 'Fotos@foto_edit');
 
+Route::get('{locale}/foto/tambah', function ($locale) {
+    App::setLocale($locale);
+    return view('foto.foto_tambah');});
+
+Route::get('/foto/hapus/{id}', 'Fotos@foto_hapus');
+Route::post('/foto/store', 'Fotos@foto_store');
+Route::put('/foto/update/{id}', 'Fotos@foto_update');
+    
 /* Route Info Utama (Info48) */
-Route::get('/id/info', 'InfoId@info');
-Route::get('/id/info_edit', 'InfoId@infoedit');
-Route::get('/id/info/tambah', 'InfoId@info_tambah');
-Route::get('/id/info/edit/{id}', 'InfoId@info_edit');
-Route::get('/id/info/cari', 'InfoId@cari');
-Route::post('/id/info/store', 'InfoId@info_store');
-Route::put('/id/info/update/{id}', 'InfoId@info_update');
+Route::get('/info', 'Utama@info');
+Route::get('/info/cari', 'Utama@cariinfo');
+Route::get('/infoedit', 'Infos@infoedit');
+Route::get('/infoedit/cari', 'Infos@cari');
+Route::get('/info/tambah', 'Infos@info_tambah');
+Route::get('/info/edit/{id}', 'Infos@info_edit');
+Route::get('/info/hapus/{id}', 'Infos@info_hapus');
+Route::post('/info/store', 'Infos@info_store');
+Route::put('/info/update/{id}', 'Infos@info_update');
 
-/* Route Info Grup 48 Utama*/
-Route::get('/id/infogrup48_edit', 'InfoGrup48Id@infogrup48edit');
-Route::get('/id/infogrup48/tambah', 'InfoGrup48Id@infogrup48_tambah');
-Route::get('/id/infogrup48/edit/{grup}', 'InfoGrup48Id@infogrup48_edit');
-Route::post('/id/infogrup48/store', 'InfoGrup48Id@infogrup48_store');
-Route::put('/id/infogrup48/update/{grup}', 'InfoGrup48Id@infogrup48_update');
+/* Route Info-Member */
+Route::get('/infomemberedit', 'InfoMembers@infomemberedit');
+Route::get('/infomember/tambah', 'InfoMembers@infomember_tambah');
+Route::get('/infomember/edit/{id}', 'InfoMembers@infomember_edit');
+Route::get('/infomember/hapus/{id}', 'InfoMembers@infomember_hapus');
+Route::post('/infomember/store', 'InfoMembers@infomember_store');
+Route::put('/infomember/update/{id}', 'InfoMembers@infomember_update');
+Route::get('/infomember/hapus/{id}', 'InfoMembers@infomember_hapus');
 
-/*Route Info Grup 48 Detil */
-Route::get('/id/akb48', 'InfoGrup48Id@akb48');
-Route::get('/id/akb48tp', 'InfoGrup48Id@akb48tp');
-Route::get('/id/akb48sh', 'InfoGrup48Id@akb48sh');
-Route::get('/id/jkt48', 'InfoGrup48Id@jkt48');
-Route::get('/id/mnl48', 'InfoGrup48Id@mnl48');
-Route::get('/id/ske48', 'InfoGrup48Id@ske48');
-Route::get('/id/hkt48', 'InfoGrup48Id@hkt48');
-Route::get('/id/bnk48', 'InfoGrup48Id@bnk48');
-Route::get('/id/cgm48', 'InfoGrup48Id@cgm48');
-Route::get('/id/ngt48', 'InfoGrup48Id@ngt48');
-Route::get('/id/sgo48', 'InfoGrup48Id@sgo48');
-Route::get('/id/del48', 'InfoGrup48Id@del48');
-Route::get('/id/stu48', 'InfoGrup48Id@stu48');
-Route::get('/id/keyakizaka46', 'InfoGrup48Id@keyakizaka46');
-Route::get('/id/nogizaka46', 'InfoGrup48Id@nogizaka46');
+/* Route Info-Grup */
+Route::get('/grupinfoedit', 'GrupInfos@grupinfoedit');
+Route::get('/grupinfo/tambah', 'GrupInfos@grupinfo_tambah');
+Route::get('/grupinfo/edit/{id}', 'GrupInfos@grupinfo_edit');
+Route::get('/grupinfo/hapus/{id}', 'GrupInfos@grupinfo_hapus');
+Route::post('/grupinfo/store', 'GrupInfos@grupinfo_store');
+Route::put('/grupinfo/update/{id}', 'GrupInfos@grupinfo_update');
+Route::get('/grupinfo/hapus/{id}', 'GrupInfos@grupinfo_hapus');
 
+/* Route Member */
+Route::get('/memberedit', 'Members@memberedit');
+Route::get('/memberedit/cari', 'Members@cari');
+Route::get('/member/edit/{id}', 'Members@member_edit');
 
+Route::get('{locale}/member/tambah', function ($locale) {
+    App::setLocale($locale);
+    return view('member.member_tambah');});
+
+Route::get('/member/hapus/{id}', 'Members@member_hapus');
+Route::post('/member/store', 'Members@member_store');
+Route::put('/member/update/{id}', 'Members@member_update');
+
+/* Route Grup */
+Route::get('/grupedit', 'Grups@grupedit');
+Route::get('/grupedit/cari', 'Grups@cari');
+Route::get('/grup/edit/{id}', 'Grups@grup_edit');
+
+Route::get('{locale}/grup/tambah', function ($locale) {
+    App::setLocale($locale);
+    return view('grup.grup_tambah');});
+
+Route::get('/grup/hapus/{id}', 'Grups@grup_hapus');
+Route::post('/grup/store', 'Grups@grup_store');
+Route::put('/grup/update/{id}', 'Grups@grup_update');
+
+/* Route Foto-Grup */
+Route::get('/fotogrupedit', 'FotoGrups@fotogrupedit');
+Route::get('/fotogrup/edit/{id}', 'FotoGrups@fotogrup_edit');
+
+Route::get('{locale}/fotogrup/tambah', function ($locale) {
+    App::setLocale($locale);
+    return view('fotogrup.fotogrup_tambah');});
+
+Route::get('/fotogrup/hapus/{id}', 'FotoGrups@fotogrup_hapus');
+Route::post('/fotogrup/store', 'FotoGrups@fotogrup_store');
+Route::put('/fotogrup/update/{id}', 'FotoGrups@fotogrup_update');
+
+/* Route Foto-Member */
+Route::get('/fotomemberedit', 'FotoMembers@fotomemberedit');
+Route::get('/fotomember/edit/{id}', 'FotoMembers@fotomember_edit');
+
+Route::get('{locale}/fotomember/tambah', function ($locale) {
+    App::setLocale($locale);
+    return view('fotomember.fotomember_tambah');});
+
+Route::get('/fotomember/hapus/{id}', 'FotoMembers@fotomember_hapus');
+Route::post('/fotomember/store', 'FotoMembers@fotomember_store');
+Route::put('/fotomember/update/{id}', 'FotoMembers@fotomember_update');
+
+/* Melakukan pelaksanaan authentikasi pengguna/login */
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
